@@ -17,6 +17,6 @@ export default {
 @import "https://use.fontawesome.com/releases/v5.8.2/css/all.css";
   #app{
     height: 100vh;
-    background: #fafafa;
+    background: #e2e2e2;
   }
 </style>

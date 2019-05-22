@@ -7,7 +7,10 @@ Vue.use(Router);
 const router = new Router({
   mode: 'history',
   routes: [
-    { path: '/', redirect: '/getlink' },
+    { 
+      path: '/', 
+      redirect: '/getlink' 
+    },
     {
       path: '/getlink',
       component: () => import('@/views/Getlink.vue'),
@@ -31,6 +34,14 @@ const router = new Router({
       meta:{
         public: true,
         onlyWhenLoggedOut: true
+      }
+    },
+    {
+      path: '*',
+      name: 'error-page',
+      component: ()=> import('@/views/Notfound'),
+      meta:{
+        public: true
       }
     }
   ]

@@ -46,7 +46,7 @@
         window.open(this.url, '_blank');
       }
     },
-    beforeMount: async function(){
+    beforeCreate: async function(){
       let self = this;
       let res = await getLink(this.$route.params.id);
       if(res && res.url){
@@ -54,7 +54,7 @@
         self.filename = res.name || "Fshare";
         self.url = res.url || "";
       }else{
-        self.filename = "Not found";
+        this.$router.push({name: 'page-not-found'});
       }
     }
   }

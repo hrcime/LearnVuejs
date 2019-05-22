@@ -7,9 +7,10 @@ Vue.use(Router);
 const router = new Router({
   mode: 'history',
   routes: [
-    { 
-      path: '/', 
-      redirect: '/getlink' 
+    {
+      path: '/',
+      name: 'home',
+      redirect: '/getlink'
     },
     {
       path: '/getlink',
@@ -38,7 +39,7 @@ const router = new Router({
     },
     {
       path: '*',
-      name: 'error-page',
+      name: 'page-not-found',
       component: ()=> import('@/views/Notfound'),
       meta:{
         public: true
@@ -50,7 +51,7 @@ const router = new Router({
 router.beforeEach((to, from, next)=>{
   const isPublic = to.matched.some(record => record.meta.public);
   const loggedIn = !!storageService.getToken();
-  const onlyWhenLoggedOut = to.matched.some(record => record.meta.onlyWhenLoggedOut)
+  const onlyWhenLoggedOut = to.matched.some(record => record.meta.onlyWhenLoggedOut);
 
   if(!isPublic && !loggedIn){
     return next({

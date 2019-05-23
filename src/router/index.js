@@ -19,12 +19,18 @@ const router = new Router({
         {
           path: '',
           name: 'getlink',
-          component: () => import('@/components/Getlink/GetlinkForm')
+          component: () => import('@/components/Getlink/GetlinkForm'),
+          meta: {
+            title: "Get Link"
+          }
         },
         {
           path: 'download/:id',
           name: 'download',
-          component: () => import('@/components/Getlink/Download')
+          component: () => import('@/components/Getlink/Download'),
+          meta : {
+            title: "Download"
+          }
         }
       ]
     },
@@ -34,7 +40,16 @@ const router = new Router({
       component: ()=> import('@/views/Login'),
       meta:{
         public: true,
-        onlyWhenLoggedOut: true
+        onlyWhenLoggedOut: true,
+        title: "Sign In"
+      }
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: ()=> import('@/views/Dashboard'),
+      meta: {
+        title: "Dashboard"
       }
     },
     {
@@ -42,7 +57,10 @@ const router = new Router({
       name: 'page-not-found',
       component: ()=> import('@/views/Notfound'),
       meta:{
-        public: true
+        public: true,
+        meta: {
+          title: "Page Not Found"
+        }
       }
     }
   ]
@@ -52,6 +70,9 @@ router.beforeEach((to, from, next)=>{
   const isPublic = to.matched.some(record => record.meta.public);
   const loggedIn = !!storageService.getToken();
   const onlyWhenLoggedOut = to.matched.some(record => record.meta.onlyWhenLoggedOut);
+  if(to.meta.title){
+    document.title = to.meta.title + " | Chiu^2";
+  }
 
   if(!isPublic && !loggedIn){
     return next({

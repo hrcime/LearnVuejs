@@ -7,6 +7,9 @@
         <button class="btn btn-primary btn-block" @click="loginWithFacebook">
           <i class="fab fa-facebook"></i> Facebook
         </button>
+        <button class="btn btn-primary btn-block" @click="loginWithTwitter">
+          <i class="fab fa-twitter"></i> Twitter
+        </button>
       </div>
     </div>
   </div>
@@ -31,6 +34,17 @@
     methods: {
       loginWithFacebook: async function () {
         let data = await Auth.signInWithPopup("facebook");
+        if(data){
+          this.$router.push(this.$route.query.redirect || "/");
+        }else{
+          this.error = {
+            message: "Login fail",
+            type: "danger"
+          }
+        }
+      },
+      loginWithTwitter: async function () {
+        let data = await Auth.signInWithPopup("twitter");
         if(data){
           this.$router.push(this.$route.query.redirect || "/");
         }else{

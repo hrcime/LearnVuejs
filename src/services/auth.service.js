@@ -8,14 +8,29 @@ const Auth = {
       case "facebook":
         return new Promise((resolve, reject)=>{
           auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(function(result){
-            if(result && result.credential){
+            console.log(result);
+            if (result && result.credential) {
+              storageService.saveToken(result.credential.accessToken);
+              resolve(true);
+            }
+          }).catch(function (error) {
+            reject(false);
+          })
+        });
+        break;
+
+      case "twitter":
+        return new Promise((resolve, reject)=>{
+          auth.signInWithPopup(new firebase.auth.TwitterAuthProvider()).then(function(result){
+            console.log(result);
+            if (result && result.credential) {
               storageService.saveToken(result.credential.accessToken);
               resolve(true);
             }
           }).catch(function(error){
             reject(false);
           })
-        });
+        })
         break;
 
       default:

@@ -6,6 +6,9 @@
         <div class="alert alert-danger" role="alert" v-show="!canDownload">
           Please go back !
         </div>
+        <div class="mb-3">
+          <input class="form-control" type="text" v-model="url" readonly>
+        </div>
         <button class="btn btn-primary btn-round btn-block" @click="download" v-show="canDownload">
           <i class="fas fa-download"></i> Download
         </button>
